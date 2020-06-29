@@ -4,5 +4,5 @@ suk dik of sudoku boissss
 -> Algorithm to solve sudoku
 -> ALgorithm to make the sudoku (like the question or whatever?)
 -> I just wanted to do some commit. 
-bruh
+reeeeeeeeeee
 oof
