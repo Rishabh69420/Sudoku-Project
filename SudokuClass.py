@@ -173,3 +173,13 @@ class _Element:
     #setter methods.
     def set_value(self, value):       #To access the value this element will have.
         self._value = value
+
+
+Test = Sudoku()
+for box in Test:
+    for element in box:
+        element.set_value(1) 
+
+for i in Test:
+    for element in box:
+        print(element.get_value())  #prints 1 81 times.
