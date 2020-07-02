@@ -95,6 +95,12 @@ class Sudoku:
             if count == index:
                 return i
             count += 1
+
+    def __eq__(self,b):
+        for box in range(9):
+            for element in range(9):
+                if self[box][element] != b[box][element]: return False
+        return True
                 
 
 class _Box:
@@ -131,12 +137,6 @@ class _Box:
             yield element
         for element in self.bottom_row:
             yield element
-
-    def __len__(self):      #functionality -> len(box)
-        count = 0
-        for element in self:
-            count+=1
-        return count
     
     def __getitem__(self, index):     #functionality -> getting value of box[3]
         count = 0                     #returns value of specified index.
