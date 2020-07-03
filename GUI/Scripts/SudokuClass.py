@@ -59,9 +59,9 @@ class Sudoku:
         element_index = index%3                       #left to right.
         column = []
         for i in range(9):
-            if i%3 == 0:
+            if i%3 == 0 and i>1:
                 box_index += 3
-                element_index -= 6
+                element_index -= 9
             element = self[box_index][element_index]
             column.append(element.get_value())        #appends value of the element.
             element_index += 3
@@ -72,9 +72,9 @@ class Sudoku:
         element_index = index%3 * 3
         row = []
         for i in range(9):
-            if i%3 == 0:
+            if i%3 == 0 and i>1:
                 box_index += 1
-                element_index -= 2
+                element_index -= 3
             element = self[box_index][element_index]
             row.append(element.get_value())
             element_index += 1
@@ -85,9 +85,9 @@ class Sudoku:
         element_index = index%3                       #left to right.
         column = []
         for i in range(9):
-            if i%3 == 0:
+            if i%3 == 0 and i>1:
                 box_index += 3
-                element_index -= 6
+                element_index -= 9
             element = self[box_index][element_index]
             column.append(element)        #appends value of the element.
             element_index += 3
@@ -98,9 +98,9 @@ class Sudoku:
         element_index = index%3 * 3
         row = []
         for i in range(9):
-            if i%3 == 0:
+            if i%3 == 0 and i>1:
                 box_index += 1
-                element_index -= 2
+                element_index -= 3
             element = self[box_index][element_index]
             row.append(element)
             element_index += 1
@@ -115,7 +115,8 @@ class Sudoku:
     def get_all_rows(self):                  #Return a list of all the rows.
         rows = []
         for i in range(9):
-            rows.append(self.get_row(i))
+            row = self.get_row(i)
+            rows.append(row)
         return rows
 
     def get_indices(self, val):                       #returns index of element in all boxes.
@@ -247,7 +248,5 @@ for box in Test1:
     for element in box:
         element.set_value(1)
 
-Test1[3][2].set_value(3)
-print(Test == Test1)
+print(Test.get_all_columns())
 
-print(Test1.get_indices(3))
