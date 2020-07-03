@@ -84,9 +84,10 @@ class Sudoku:
         box_index = 0                                 #the indexes are in the form of a tuple
         indices = []                                  #first element of tuple is the box index
         for box in self:                              #second element of tuple is the element
-            element_index = box.get_index(val)        #index.
-            indices.append((box_index,element_index))
+            if val in box:                            #index.
+                indices.append((box_index, box.get_index(val)))
             box_index += 1
+        return indices
 
                                       
     #operator overloading methods.           
@@ -105,10 +106,10 @@ class Sudoku:
                 return i
             count += 1
 
-    def __eq__(self,b):
-        for box in range(9):
+    def __eq__(self,b):                   #functionality -> sudoku1 == sudoku2
+        for box in range(9):              #compares all values of both sudokus.
             for element in range(9):
-                if self[box][element] != b[box][element]: return False
+                if self[box][element].get_value() != b[box][element].get_value(): return False
         return True
                 
 
@@ -164,10 +165,16 @@ class _Box:
         
     def __setitem__(self,index,val):                 #functionality -> assignment box[2]=3 
         count = 0                                    #assignment at a specific index.
-        for element_place in range(len(self)):
+        for element_place in range(9):
             if count == element_place:
                 self[element_place].set_value(val)
             count+=1
+
+    def __contains__(self,val):                      #functionality -> val in box
+        for element in self:                         #returns True or False.
+            if element.get_value() == val:
+                return True
+        return False
 
 
 class _Element:
@@ -195,8 +202,14 @@ class _Element:
 Test = Sudoku()
 for box in Test:
     for element in box:
-        element.set_value(1) 
+        element.set_value(1)
 
-for i in Test:
+Test1 = Sudoku()
+for box in Test1:
     for element in box:
-        print(element.get_value())  #prints 1 81 times.
+        element.set_value(1)
+
+Test1[3][2].set_value(3)
+print(Test == Test1)
+
+print(Test1.get_indices(3))
