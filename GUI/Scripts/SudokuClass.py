@@ -237,16 +237,17 @@ class _Element:
     def set_value(self, value):       #To access the value this element will have.
         self._value = value
 
+if __name__ == "__main__":
+    """Testing Sudoku class objects"""
+    Test = Sudoku()
+    for box in Test:
+        for element in box:
+            element.set_value(1)
 
-Test = Sudoku()
-for box in Test:
-    for element in box:
-        element.set_value(1)
+    Test1 = Sudoku()
+    for box in Test1:
+        for element in box:
+            element.set_value(1)
 
-Test1 = Sudoku()
-for box in Test1:
-    for element in box:
-        element.set_value(1)
-
-print(Test.get_all_columns())
-
+    for i in Test1.get_all_rows():
+        print(list(map(_Element.get_value, i)))
