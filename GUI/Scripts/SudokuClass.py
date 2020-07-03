@@ -79,6 +79,15 @@ class Sudoku:
             row.append(element.get_value())
             element_index += 1
         return row
+
+    def get_indices(self, val):                       #returns index of element in all boxes.
+        box_index = 0                                 #the indexes are in the form of a tuple
+        indices = []                                  #first element of tuple is the box index
+        for box in self:                              #second element of tuple is the element
+            element_index = box.get_index(val)        #index.
+            indices.append((box_index,element_index))
+            box_index += 1
+
                                       
     #operator overloading methods.           
     def __iter__(self):                   #functionality -> for x in sudoku:
@@ -128,6 +137,14 @@ class _Box:
             element._row = self.mid_row 
         for element in self.bottom_row:
             element._row = self.bottom_row 
+
+    #General methods
+    def get_index(self, val):              #Returns the index of an element.
+        count = 0
+        for i in self:
+            if i.get_value() == val:
+                return count
+            count += 1
 
     #Operator overloading methods
     def __iter__(self):                    #functionality -> for x in box:
