@@ -54,7 +54,7 @@ class Sudoku:
             i.box_pos = 'bottom'
 
     #Getter methods
-    def get_column(self, index):                      #returns column in the form of 
+    def get_column_values(self, index):               #returns column values in the form of 
         box_index = index//3                          #a list. Indexing from 0-8 from
         element_index = index%3                       #left to right.
         column = []
@@ -67,8 +67,8 @@ class Sudoku:
             element_index += 3
         return column
 
-    def get_row(self, index):                         #returns row in the form of a list.
-        box_index = (index//3) * 3                    #Indexing from 0-8 from top to bottom
+    def get_row_values(self, index):               #returns row values in the form of a list.
+        box_index = (index//3) * 3                 #Indexing from 0-8 from top to bottom
         element_index = index%3 * 3
         row = []
         for i in range(9):
@@ -79,6 +79,44 @@ class Sudoku:
             row.append(element.get_value())
             element_index += 1
         return row
+
+    def get_column(self, index):                      #returns column in the form of 
+        box_index = index//3                          #a list. Indexing from 0-8 from
+        element_index = index%3                       #left to right.
+        column = []
+        for i in range(9):
+            if i%3 == 0:
+                box_index += 3
+                element_index -= 6
+            element = self[box_index][element_index]
+            column.append(element)        #appends value of the element.
+            element_index += 3
+        return column
+
+    def get_row(self, index):                      #returns row in the form of a list.
+        box_index = (index//3) * 3                 #Indexing from 0-8 from top to bottom
+        element_index = index%3 * 3
+        row = []
+        for i in range(9):
+            if i%3 == 0:
+                box_index += 1
+                element_index -= 2
+            element = self[box_index][element_index]
+            row.append(element)
+            element_index += 1
+        return row
+
+    def get_all_columns(self):               #Returns a list of all the columns.
+        columns = []
+        for i in range(9):
+            columns.append(self.get_column(i))
+        return columns
+
+    def get_all_rows(self):                  #Return a list of all the rows.
+        rows = []
+        for i in range(9):
+            rows.append(self.get_row(i))
+        return rows
 
     def get_indices(self, val):                       #returns index of element in all boxes.
         box_index = 0                                 #the indexes are in the form of a tuple
