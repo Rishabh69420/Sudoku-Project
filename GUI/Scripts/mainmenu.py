@@ -12,10 +12,11 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(448, 532)
+        MainWindow.setFixedSize(448, 532)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.mainMenu_background_label = QtWidgets.QLabel(self.centralwidget)
-        self.mainMenu_background_label.setGeometry(QtCore.QRect(6, 2, 431, 491))
+        self.mainMenu_background_label.setGeometry(QtCore.QRect(-10, 0, 461, 521))
         self.mainMenu_background_label.setText("")
         self.mainMenu_background_label.setPixmap(QtGui.QPixmap(r".\GUI\Resources\bgtest-3.png"))
         self.mainMenu_background_label.setScaledContents(True)
