@@ -31,7 +31,7 @@ Read through the documentation in the code too, it'll give you a better idea.
 
                                         END                                   
 '''
-
+import random
 
 class Sudoku:
 
@@ -252,97 +252,97 @@ if __name__ == "__main__":
     for i in Test1.get_all_rows():
         print(list(map(_Element.get_value, i)))
         
-"""
-============================================================================================================================================
+#    """
+#  ============================================================================================================================================
 
-                                              Starting work on the printing to see the output
+#                                              Starting work on the printing to see the output
 
-============================================================================================================================================
-"""
+#    ============================================================================================================================================
+#   """
  
-'''                      Temporary Input!                        '''
+#    '''                      Temporary Input!                        '''
 
-counter=1
-Test1 = Sudoku()                                      # This is for temporary input
-for x in range(0,9):
-    for y in range(0,9):
-        if counter <= 9:                              # 1 to 9 in each box
-            Test1[x][y].set_value(counter)
-            counter += 1
-        else:                                         # reset for each box
-            counter = 1
-            Test1[x][y].set_value(counter)
-            counter += 1
+    counter=1
+    Test1 = Sudoku()                                      # This is for temporary input
+    for x in range(0,9):
+        for y in range(0,9):
+            if counter <= 9:                              # 1 to 9 in each box
+                Test1[x][y].set_value(counter)
+                counter += 1
+            else:                                         # reset for each box
+                counter = 1
+                Test1[x][y].set_value(counter)
+                counter += 1
 
-Test = Sudoku()
+    Test = Sudoku()
 
-'''                      Temporary Display!                      '''
+    '''                      Temporary Display!                      '''
 
-for w in range(0,3):                                  # This is for temporary display
-    co1 = 3*w                                         # factor to print rows of boxes
-    print("\n+=======================+",end="")
-    for z in range(0,3):
-        co2 = 3*z                                     # factor to print rows of values
-        print("")
-        for l in range(0,3):                          # To print first 3 boxes
-                for m in range(0,3):                  # To print first 3 element of a box, i.e., completing a row
-                    if m == 0 and l == 0:
-                        print("| ",end="")
-                    print(f"{Test1[l+co1][m+co2].get_value()} ",end="")
-                    if m == 2:
-                        print("| ",end="")
-print("\n+=======================+")
+    for w in range(0,3):                                  # This is for temporary display
+        co1 = 3*w                                         # factor to print rows of boxes
+        print("\n+=======================+",end="")
+        for z in range(0,3):
+            co2 = 3*z                                     # factor to print rows of values
+            print("")
+            for l in range(0,3):                          # To print first 3 boxes
+                    for m in range(0,3):                  # To print first 3 element of a box, i.e., completing a row
+                        if m == 0 and l == 0:
+                            print("| ",end="")
+                        print(f"{Test1[l+co1][m+co2].get_value()} ",end="")
+                        if m == 2:
+                            print("| ",end="")
+    print("\n+=======================+")
 
-'''
-for h in range(0,9):
-    print(list(map(_Element.get_value, Test1.get_row(h))))
-'''
-
-
-'''                        WIP Generator!                         '''
+    '''
+    for h in range(0,9):
+        print(list(map(_Element.get_value, Test1.get_row(h))))
+    '''
 
 
-for box_no in range(0,9):
-    for element_no in range(0,9):
-        elements_in_box = []
-        x_coord = box_no%3 + element_no%3 + (box_no%3)*2                         # Conversion from [box][element] 
-        y_coord = box_no//3 + element_no//3 + (box_no//3)*2                      # To x and y indexing
-        element_possibility = [1,2,3,4,5,6,7,8,9]
-        for g in Test.get_column_values(y_coord):                                # To remove the possibility of numbers 
-            if g in element_possibility:                                         # Reoccurring in the same column
-                element_possibility.remove(g)
-        for h in Test.get_row_values(x_coord):                                   # To remove the possibility of numbers
-            if h in element_possibility:                                         # Reoccurring in the same row
-                element_possibility.remove(h)
-        for n in range(0,9):                                                     # To remove the possibility of numbers
-            elements_in_box.append(Test[box_no][n].get_value())                  # Reoccurring in the same box
-        for m in elements_in_box:
-            if m in element_possibility:
-                element_possibility.remove(m)
-        for possibility in element_possibility:                                  # Randomly choosing the element 
-            if possibility != None:                                              # out of possible values
-                choice = random.choice(element_possibility)
-            else:
-                choice = None
-            Test[box_no][element_no].set_value(choice)
+    '''                        WIP Generator!                         '''
 
 
-'''                     Testing the Generator!                   '''
+    for box_no in range(0,9):
+        for element_no in range(0,9):
+            elements_in_box = []
+            x_coord = box_no%3 + element_no%3 + (box_no%3)*2                         # Conversion from [box][element] 
+            y_coord = box_no//3 + element_no//3 + (box_no//3)*2                      # To x and y indexing
+            element_possibility = [1,2,3,4,5,6,7,8,9]
+            for g in Test.get_column_values(y_coord):                                # To remove the possibility of numbers 
+                if g in element_possibility:                                         # Reoccurring in the same column
+                    element_possibility.remove(g)
+            for h in Test.get_row_values(x_coord):                                   # To remove the possibility of numbers
+                if h in element_possibility:                                         # Reoccurring in the same row
+                    element_possibility.remove(h)
+            for n in range(0,9):                                                     # To remove the possibility of numbers
+                elements_in_box.append(Test[box_no][n].get_value())                  # Reoccurring in the same box
+            for m in elements_in_box:
+                if m in element_possibility:
+                    element_possibility.remove(m)
+            for possibility in element_possibility:                                  # Randomly choosing the element 
+                if possibility != None:                                              # out of possible values
+                    choice = random.choice(element_possibility)
+                else:
+                    choice = None
+                Test[box_no][element_no].set_value(choice)
 
-for w in range(0,3):                                  # This is for temporary display
-    co1 = 3*w                                         # factor to print rows of boxes
-    print("\n+=======================+",end="")
-    for z in range(0,3):
-        co2 = 3*z                                     # factor to print rows of values
-        print("")
-        for l in range(0,3):                          # To print first 3 boxes
-                for m in range(0,3):                  # To print first 3 element of a box, i.e., completing a row
-                    if m == 0 and l == 0:
-                        print("| ",end="")
-                    if Test[l+co1][m+co2].get_value() != None:
-                        print(f"{Test[l+co1][m+co2].get_value()} ",end="")
-                    else: 
-                        print("  ",end="")
-                    if m == 2:
-                        print("| ",end="")
-print("\n+=======================+")
+
+    '''                     Testing the Generator!                   '''
+
+    for w in range(0,3):                                  # This is for temporary display
+        co1 = 3*w                                         # factor to print rows of boxes
+        print("\n+=======================+",end="")
+        for z in range(0,3):
+            co2 = 3*z                                     # factor to print rows of values
+            print("")
+            for l in range(0,3):                          # To print first 3 boxes
+                    for m in range(0,3):                  # To print first 3 element of a box, i.e., completing a row
+                        if m == 0 and l == 0:
+                            print("| ",end="")
+                        if Test[l+co1][m+co2].get_value() != None:
+                            print(f"{Test[l+co1][m+co2].get_value()} ",end="")
+                        else: 
+                            print("  ",end="")
+                        if m == 2:
+                            print("| ",end="")
+    print("\n+=======================+")
