@@ -48,11 +48,12 @@ class UserInputBox(QtWidgets.QLineEdit):
 "border : 3px solid white;\n"
 "}")
 
+    
 '''
 Class for Sudoku window.
-REMEMBER TO GIVE A SUDOKU BOARD PARAMETER WHILE CREATING A Ui_MainWindow object!!
+REMEMBER TO GIVE A SUDOKU BOARD PARAMETER WHILE CREATING Sudoku object!!
 '''
-class Ui_MainWindow(object):
+class SudokuMainWindow(object):
     def __init__(self, board):
         super().__init__()
         self.board = board
@@ -134,7 +135,7 @@ if __name__ == "__main__":
     for i in Test_Sudoku_Object.get_all_rows():
         BOARD.append(list(map(SudokuClass._Element.get_value, i)))
     
-    ui = Ui_MainWindow(BOARD)           #Always pass a board parameter!
+    ui = SudokuMainWindow(BOARD)           #Always pass a board parameter!
 
     ui.setupUi(MainWindow)
     MainWindow.show()

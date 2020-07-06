@@ -1,4 +1,5 @@
 .vscode/sudoku-project.code-workspace
 .vscode/settings.json
+.vscode/launch.json
 *.ui
 *.pyc
