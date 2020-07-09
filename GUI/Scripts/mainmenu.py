@@ -11,14 +11,14 @@ import SudokuGridlayout
 from random import choice, randint
 import SudokuClass
 
-class MainmenuUI(object):
+class MainmenuUI(QtWidgets.QFrame):
     def setupUi(self, MainWindow):
         self.MainWindow = MainWindow
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(448, 532)
         MainWindow.setFixedSize(448, 532)
 
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget = self
         self.centralwidget.setObjectName("centralwidget")
 
         self.mainMenu_background_label = QtWidgets.QLabel(self.centralwidget)
@@ -38,10 +38,10 @@ class MainmenuUI(object):
 
         self.play_button = QtWidgets.QPushButton(self.centralwidget)
         self.play_button.setGeometry(QtCore.QRect(160, 210, 121, 31))
-        font = QtGui.QFont()
-        font.setFamily("Futurist Fixed-width")
-        font.setPointSize(18)
-        self.play_button.setFont(font)
+        self.font = QtGui.QFont()
+        self.font.setFamily("Futurist Fixed-width")
+        self.font.setPointSize(18)
+        self.play_button.setFont(self.font)
         self.play_button.setStyleSheet("QPushButton{background: transparent;}QPushButton::hover\n"
 "{\n"
 "border : 3px solid black;\n"
@@ -52,20 +52,15 @@ class MainmenuUI(object):
         self.top_score_button = QtWidgets.QPushButton(self.centralwidget)
         self.top_score_button.setEnabled(False)
         self.top_score_button.setGeometry(QtCore.QRect(160, 272, 121, 41))
-        font = QtGui.QFont()
-        font.setFamily("Futurist Fixed-width")
-        font.setPointSize(16)
-        self.top_score_button.setFont(font)
+        self.font.setPointSize(16)
+        self.top_score_button.setFont(self.font)
         self.top_score_button.setStyleSheet("QPushButton{background: transparent;}")
         self.top_score_button.setObjectName("top_score_button")
 
         self.more_options_button = QtWidgets.QPushButton(self.centralwidget)
         self.more_options_button.setEnabled(False)
         self.more_options_button.setGeometry(QtCore.QRect(160, 330, 131, 41))
-        font = QtGui.QFont()
-        font.setFamily("Futurist Fixed-width")
-        font.setPointSize(16)
-        self.more_options_button.setFont(font)
+        self.more_options_button.setFont(self.font)
         self.more_options_button.setStyleSheet("QPushButton{background: transparent;}")
         self.more_options_button.setObjectName("more_options_button")
 
@@ -90,8 +85,9 @@ class MainmenuUI(object):
         self.more_options_button.setText(_translate("MainWindow", "MORE.."))
 
     def play_button_clicked(self):
-        self.MainWindow.hide()
-        sudoku_screen.show()
+        self.hide()
+        sudoku_ui.show()
+        
 
     def topscore_clicked(self):
         pass
@@ -103,13 +99,12 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
 
+    global mainmenu_mainwindow
     mainmenu_mainwindow = QtWidgets.QMainWindow()
     mainmenu_ui = MainmenuUI()
     mainmenu_ui.setupUi(mainmenu_mainwindow)
     mainmenu_mainwindow.show()
 
-    global sudoku_screen
-    sudoku_screen = QtWidgets.QMainWindow()
     test_sudoku_obj = SudokuClass.Sudoku()
     for i in test_sudoku_obj:
         for j in i:
@@ -119,7 +114,8 @@ if __name__ == "__main__":
     for i in test_sudoku_obj.get_all_rows():
         BOARD.append(list(map(SudokuClass._Element.get_value, i)))
 
+    global sudoku_ui
     sudoku_ui = SudokuGridlayout.SudokuMainWindow(BOARD)
-    sudoku_ui.setupUi(sudoku_screen)
-    
+    sudoku_ui.setupUI(mainmenu_mainwindow)
+    sudoku_ui.hide()
     sys.exit(app.exec_())

@@ -53,19 +53,22 @@ class UserInputBox(QtWidgets.QLineEdit):
 Class for Sudoku window.
 REMEMBER TO GIVE A SUDOKU BOARD PARAMETER WHILE CREATING Sudoku object!!
 '''
-class SudokuMainWindow(object):
+class SudokuMainWindow(QtWidgets.QFrame):
     def __init__(self, board):
         super().__init__()
         self.board = board
+        self.setLineWidth(0)
+        self.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.setFixedSize(448, 532)
+        self.setWindowTitle("Sudoku!")
     
-    def setupUi(self, MainWindow):
+    def setupUI(self):
+        '''self.MainWindow = MainWindow
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(448, 532)
-        MainWindow.setFixedSize(448, 532)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
+        MainWindow.setFixedSize(448, 532)'''
 
-        self.sudoku_background_label = QtWidgets.QLabel(self.centralwidget)   #
+        self.sudoku_background_label = QtWidgets.QLabel(self)   #
         self.sudoku_background_label.setGeometry(QtCore.QRect(-10, 0, 461, 521))
         self.sudoku_background_label.setText("")
         self.sudoku_background_label.setPixmap(QtGui.QPixmap("GUI/Resources/sudoku-grid.png"))
@@ -73,12 +76,13 @@ class SudokuMainWindow(object):
         self.sudoku_background_label.setObjectName("sudoku_background_label")
 
         #displaying the numbers using a grid layout
-        self.gridLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(20, 20, 400, 400))
+        self.gridLayoutWidget = QtWidgets.QWidget(self)
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(0, 0, 300, 200))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout = QtWidgets.QGridLayout(self)
+        #self.gridLayout.setContentsMargins()
         self.gridLayout.setObjectName("gridLayout")
+        self.gridLayout.setContentsMargins(QtCore.QMargins(14,16,21,104))
         self.gridLayout.setSpacing(0)
 
         """namedtuple 'coordinate' which stores x and y coordinates to where the labels or textboxes are filled in.
@@ -101,42 +105,20 @@ class SudokuMainWindow(object):
                     current_coords = coordinate(current_coords.x + 1, current_coords.y)
             current_coords = coordinate(x = 0, y = current_coords.y + 1)
 
-    
-        MainWindow.setCentralWidget(self.centralwidget)
-
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 448, 20))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Sudoku!"))
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-
-    BOARD = []
-    #testing
-    Test_Sudoku_Object = SudokuClass.Sudoku()
-    for i in Test_Sudoku_Object:
-        for j in i:
-            j.set_value(choice([randint(1,9),None]))
-    
-    for i in Test_Sudoku_Object.get_all_rows():
-        BOARD.append(list(map(SudokuClass._Element.get_value, i)))
-    
+    def create_test_board():
+        BOARD = []
+        Test_Sudoku_Object = SudokuClass.Sudoku()
+        for i in Test_Sudoku_Object:
+            for j in i:
+                j.set_value(choice([randint(1,9),None]))
+        
+        for i in Test_Sudoku_Object.get_all_rows():
+            BOARD.append(list(map(SudokuClass._Element.get_value, i)))
+        return BOARD
+    BOARD = create_test_board()
     ui = SudokuMainWindow(BOARD)           #Always pass a board parameter!
-
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    ui.show()
     sys.exit(app.exec_())
