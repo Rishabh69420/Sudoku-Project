@@ -116,6 +116,6 @@ if __name__ == "__main__":
 
     global sudoku_ui
     sudoku_ui = SudokuGridlayout.SudokuMainWindow(BOARD)
-    sudoku_ui.setupUI(mainmenu_mainwindow)
+    sudoku_ui.setupUI()
     sudoku_ui.hide()
     sys.exit(app.exec_())

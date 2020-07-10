@@ -277,30 +277,30 @@ if __name__ == "__main__":
     for i in Test2.get_all_rows():
         print(list(map(_Element.get_value, i)))
         
-"""
-============================================================================================================================================
+    """
+    ============================================================================================================================================
 
                                               Starting work on the printing to see the output
 
-============================================================================================================================================
-"""
+    ============================================================================================================================================
+    """
  
-'''                      Temporary Input!                        '''
+    '''                      Temporary Input!                        '''
 
-Test = Sudoku()
+    Test = Sudoku()
 
-'''
-for h in range(0,9):
-    print(list(map(_Element.get_value, Test1.get_row(h))))
-'''
-
-
-'''             WIP Generator! (made it a function)             '''
-
-Test.generate_puzzle()
+    '''
+    for h in range(0,9):
+        print(list(map(_Element.get_value, Test1.get_row(h))))
+    '''
 
 
-'''                    Testing the Generator!                   '''
+    '''             WIP Generator! (made it a function)             '''
+
+    Test.generate_puzzle()
+
+
+    '''                    Testing the Generator!                   '''
 
     for w in range(0,3):                                  # This is for temporary display
         co1 = 3*w                                         # factor to print rows of boxes
